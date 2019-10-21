@@ -43,6 +43,27 @@ router.post('/login', (req, res) => {
         });
 });
 
+router.get('/users', (req, res) => {
+    Users
+        .find()
+        .then(users => {
+            res.status(200).json(users)
+        })
+        .catch(error => res.status(401).json({ message: 'users not found', error }))
+})
+
+router.get('/users/:id', (req, res) => {
+    id = req.params.id
+    Users
+        .findById(id)
+        .then(oneUser => {
+            res.status(200).json(oneUser)
+        })
+        .catch(error => res.status(401).json({ message: 'user with specified id not found', error }))
+})
+
+router.get('/users/:id/favorites')
+
 function generateToken(user) {
     const payload = {
         subject: user.id,
