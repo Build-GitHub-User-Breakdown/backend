@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
-    "server": "nodemon index.js",
-    "start": "index.js"
+    "server": "nodemon index",
+    "start": "index"
   },
   "repository": {
     "type": "git",
