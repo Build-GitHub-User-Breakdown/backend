@@ -7,7 +7,7 @@ router.get('/', (req, res) => {
     }
 
     axios
-        .get('https://api.github.com', requestOptions)
+        .get('https://api.github.com/user', requestOptions)
         .then(res => {
             res.status(200).json(res)
         })
