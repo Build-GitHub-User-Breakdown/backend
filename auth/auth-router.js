@@ -13,13 +13,14 @@ router.post('/register', (req, res) => {
 
     Users.add(user)
         .then(saved => {
-            res.status(201).json(saved, 'successfully added user');
+            res.status(201).json(saved);
         })
         .catch(err => {
             console.log(err);
             res.status(500).json({ error: "error adding user" });
         });
 });
+
 
 router.post('/login', (req, res) => {
     let { username, password } = req.body;

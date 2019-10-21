@@ -4,10 +4,10 @@ exports.up = function (knex) {
         users.increments();
 
         users
-            .string('username', 255)
+            .string('username', 16)
             .notNullable()
             .unique();
-        users.string('password', 255).notNullable();
+        users.string('password', 48).notNullable();
     })
 };
 
