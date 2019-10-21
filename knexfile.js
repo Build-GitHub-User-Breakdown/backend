@@ -1,6 +1,6 @@
 const localPg = {
     host: 'localhost',
-    port: 5432,
+    port: 3300,
     user: 'justin',
     database: 'favorites',
 };
