@@ -6,7 +6,6 @@ const secret = require('../config/secrets')
 
 
 router.post('/register', (req, res) => {
-  // implement registration
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10);
 
@@ -23,7 +22,6 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  // implement login
   let { username, password } = req.body;
 
   Users.findBy({ username })
@@ -46,10 +44,13 @@ router.post('/login', (req, res) => {
 });
 
 
+
 function generateToken(user) {
   const payload = {
     subject: user.id,
-    username: user.username
+    username: user.username,
+    first_name: user.first_name,
+    last_name: user.last_name
   };
   const options = {
     expiresIn: '1d'
