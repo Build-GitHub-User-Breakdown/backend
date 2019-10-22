@@ -5,10 +5,10 @@ const localPg = {
     database: 'favorites',
 };
 
-const pgUser = process.env.PG_USER || 'justin';
-const pgDb = process.env.PG_DB || 'favorites';
+// const pgUser = process.env.PG_USER || 'justin';
+// const pgDb = process.env.PG_DB || 'favorites';
 
-const prodConnection = `postgres://${pgUser}@localhost/${pgDb}`;
+// const prodConnection = `postgres://${pgUser}@localhost/${pgDb}`;
 
 module.exports = {
 
@@ -46,7 +46,7 @@ module.exports = {
 
     production: {
         client: 'pg',
-        connection: prodConnection,
+        connection: { filename: './database/auth.db3' },
         migrations: {
             directory: './database/migrations',
         },
