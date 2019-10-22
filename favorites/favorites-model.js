@@ -13,6 +13,13 @@ function findById(id) {
     return db('users')
         .select('username', 'first_name', 'last_name')
         .where({ id })
-
 }
 
+function addFavorites() {
+    return db('')
+}
+
+function findFavorites() {
+    return db('favorites')
+        .join('users', 'users.id', 'favorites.user_id')
+}

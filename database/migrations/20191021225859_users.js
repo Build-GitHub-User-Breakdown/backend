@@ -7,8 +7,8 @@ exports.up = function (knex) {
             .notNullable()
             .unique();
         users.string('password', 255).notNullable()
-        users.string('first_name', 255).notNullable()
-        users.string('last_name', 255).notNullable()
+        users.string('first_name', 255)
+        users.string('last_name', 255)
 
     })
         .createTable('favorites', favorites => {
