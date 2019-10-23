@@ -40,6 +40,7 @@ function deleteFavorites(id) {
     return db('favorites').where({ id }).del()
 }
 
-function addNotes(newNote) {
-    return db('favorites').insert(newNote)
+function addNotes(changes, id) {
+    console.log(changes, id)
+    return db('favorites').where({ id }).update(changes)
 }

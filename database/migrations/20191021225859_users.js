@@ -11,10 +11,10 @@ exports.up = function (knex) {
         users.string('last_name', 255)
     })
         .createTable('favorites', favorites => {
-            favorites.increments()
-            favorites.string('favorites', 255)
-            favorites.text('notes', 255)
-            favorites
+            favorites.increments() //the ID; a primary key
+            favorites.string('favorites', 255) // the github username
+            favorites.text('notes', 500) // the note itself
+            favorites // user ID; a foreign key
                 .integer('user_id')
                 .references('id')
                 .inTable('users')
@@ -27,7 +27,7 @@ exports.up = function (knex) {
 
 exports.down = function (knex, Promise) {
     return knex.schema
-        .dropTableIfExists('notes')
+        // .dropTableIfExists('notes')
         .dropTableIfExists('favorites')
         .dropTableIfExists('users')
 };
