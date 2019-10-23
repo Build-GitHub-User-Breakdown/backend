@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db = require('../database/dbConfig')
 const Favorites = require('./favorites-model')
 
-
+//gets list of all users for me delete at some point
 router.get('/users', (req, res) => {
     Favorites.find()
         .then(allUsers => {
@@ -13,6 +13,7 @@ router.get('/users', (req, res) => {
         });
 })
 
+//gets one user object
 router.get('/users/:id', (req, res) => {
     const id = req.params.id
     Favorites.findById(id)
@@ -40,14 +41,7 @@ router.get('/users/:id', (req, res) => {
         })
 })
 
-router.delete('/users/:id/:favId', (req, res) => {
-    const id = req.params.id
-    Favorites.findById(id)
-        .then(user => {
-            Favorites.f
-        })
-})
-
+//adds new favorites
 router.post('/users/:id', (req, res) => {
     favData = { ...req.body, user_id: req.params.id }
     const id = req.params.id
@@ -70,7 +64,7 @@ router.post('/users/:id', (req, res) => {
         });
 })
 
-
+//deletes favorites
 router.delete('/:id', (req, res) => {
     Favorites
         .deleteFavorites(req.params.id)
@@ -84,6 +78,9 @@ router.delete('/:id', (req, res) => {
 })
 
 
+// router.post('/users/:id', (req, res) => {
+//     noteData = {...req.bodyid: req.params.id}
+// })
 
 
 

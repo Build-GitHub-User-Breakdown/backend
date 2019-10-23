@@ -6,7 +6,9 @@ module.exports = {
     findUserFavorites,
     findFavoriteById,
     addFavorites,
-    deleteFavorites
+    deleteFavorites,
+    addNotes,
+
 };
 
 function find() {
