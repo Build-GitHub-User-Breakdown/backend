@@ -14,24 +14,49 @@ router.get('/users', (req, res) => {
 })
 
 router.get('/users/:id', (req, res) => {
-    Favorites.findUserFavorites(req.params.id)
-        .then(favorites => {
-            res.status(200).json(favorites)
+    const id = req.params.id
+    Favorites.findById(id)
+        .then(user => {
+            Favorites.findUserFavorites(id)
+                .then(favorites => {
+                    // console.log(favorites)
+                    const userFavs = favorites.map(fav => {
+                        return {
+                            id: fav.id,
+                            githubUser: fav.favorites,
+                            notes: fav.notes
+                        }
+                    })
+                    res.status(200).json({ ...user, favorites: userFavs });
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).json(err);
+                })
         })
         .catch(err => {
-            res.status(500).json({ message: 'Failed to get favorites' });
-        });
+            console.log(err)
+            res.status(500).json(err);
+        })
+})
+
+router.delete('/users/:id/:favId', (req, res) => {
+    const id = req.params.id
+    Favorites.findById(id)
+        .then(user => {
+            Favorites.f
+        })
 })
 
 router.post('/users/:id', (req, res) => {
-    favData = req.body
-    const { id } = req.params
+    favData = { ...req.body, user_id: req.params.id }
+    const id = req.params.id
     Favorites
         .findById(id)
         .then(user => {
             if (user) {
                 Favorites
-                    .addFavorites(favData, id)
+                    .addFavorites(favData)
                     .then(newFavorite => {
                         res.status(201).json(newFavorite)
                     })
@@ -40,11 +65,25 @@ router.post('/users/:id', (req, res) => {
             }
         })
         .catch(err => {
-            console.log(err)
-            res.status(500).json({ message: 'Failed to create new step' });
+            console.log(err, 'this one')
+            res.status(500).json({ message: 'Failed to add new favorite' });
         });
-
 })
+
+
+router.delete('/:id', (req, res) => {
+    Favorites
+        .deleteFavorites(req.params.id)
+        .then(deleted => {
+            res.status(200).json(deleted)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err);
+        })
+})
+
+
 
 
 

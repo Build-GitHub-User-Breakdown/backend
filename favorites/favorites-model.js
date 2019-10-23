@@ -4,7 +4,9 @@ module.exports = {
     find,
     findById,
     findUserFavorites,
-    addFavorites
+    findFavoriteById,
+    addFavorites,
+    deleteFavorites
 };
 
 function find() {
@@ -13,21 +15,29 @@ function find() {
 
 function findById(id) {
     return db('users')
-        .select('username', 'first_name', 'last_name')
+        // .select('username', 'first_name', 'last_name')
+        .where({ id })
+        .first()
+}
+
+function findUserFavorites(id) {
+    return db('favorites')
+        .where('user_id', id)
+}
+
+function findFavoriteById(id) {
+    return db('favorites')
         .where({ id })
 }
 
-function addFavorites(favorite, user_id) {
-    return db('favorites')
-        .insert({ ...favorite, user_id })
-        .then(id => {
-            return db('favorites').where({ id: id[0] })
-        })
+function addFavorites(newfav) {
+    return db('favorites').insert(newfav)
 }
 
-function findUserFavorites(userId) {
-    return db('favorites')
-        .join('users', 'users.id', 'favorites.user_id')
-        .select('favorites.id', 'favorites.favorites', 'users.username')
-        .where({ user_id: userId })
+function deleteFavorites(id) {
+    return db('favorites').where({ id }).del()
+}
+
+function addNotes(newNote) {
+    return db('favorites').insert(newNote)
 }
