@@ -7,7 +7,7 @@ module.exports = {
     findFavoriteById,
     addFavorites,
     deleteFavorites,
-    addNotes,
+    editNotes,
 
 };
 
@@ -40,7 +40,7 @@ function deleteFavorites(id) {
     return db('favorites').where({ id }).del()
 }
 
-function addNotes(changes, id) {
+function editNotes(changes, id) {
     console.log(changes, id)
     return db('favorites').where({ id }).update(changes)
 }

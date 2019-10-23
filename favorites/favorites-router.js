@@ -90,7 +90,7 @@ router.put('/:id/notes', (req, res) => {
             // console.log(favorite, 'find favor by id')
             // if (favorite) {
             Favorites
-                .addNotes({ notes: noteData }, id)
+                .editNotes({ notes: noteData }, id)
                 .then(newNote => {
                     console.log("newNote in .then", newNote)
                     res.status(201).json(newNote)
@@ -104,6 +104,10 @@ router.put('/:id/notes', (req, res) => {
             console.log(err, 'this one notes')
             res.status(500).json({ message: 'Failed to add new note' });
         });
+})
+
+router.delete('/:id/notes', (req, res) => {
+
 })
 
 
