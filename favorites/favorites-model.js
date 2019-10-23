@@ -6,7 +6,8 @@ module.exports = {
     findUserFavorites,
     findFavoriteById,
     addFavorites,
-    deleteFavorites
+    deleteFavorites,
+    editNotes,
 };
 
 function find() {
@@ -38,6 +39,7 @@ function deleteFavorites(id) {
     return db('favorites').where({ id }).del()
 }
 
-function addNotes(newNote) {
-    return db('favorites').insert(newNote)
+function editNotes(changes, id) {
+    console.log(changes, id)
+    return db('favorites').where({ id }).update(changes)
 }
