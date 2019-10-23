@@ -81,33 +81,21 @@ router.delete('/:id', (req, res) => {
 //edit notes
 router.put('/:id/notes', (req, res) => {
     const noteData = req.body.notes
-    // console.log(noteData)
     const id = req.params.id
-    // console.log(id)
     Favorites
         .findFavoriteById(id)
         .then(favorite => {
-            // console.log(favorite, 'find favor by id')
-            // if (favorite) {
             Favorites
                 .editNotes({ notes: noteData }, id)
                 .then(newNote => {
-                    console.log("newNote in .then", newNote)
                     res.status(201).json(newNote)
                 })
                 .catch(err => console.log(err))
-            // } else {
-            //     res.status(404).json({ message: 'could not find favorite with given id' })
-            // }
         })
         .catch(err => {
             console.log(err, 'this one notes')
             res.status(500).json({ message: 'Failed to add new note' });
         });
-})
-
-router.delete('/:id/notes', (req, res) => {
-
 })
 
 

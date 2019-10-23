@@ -8,7 +8,6 @@ module.exports = {
     addFavorites,
     deleteFavorites,
     editNotes,
-
 };
 
 function find() {
