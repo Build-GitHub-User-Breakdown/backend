@@ -2,16 +2,6 @@ const router = require('express').Router();
 const db = require('../database/dbConfig')
 const Favorites = require('./favorites-model')
 
-//gets list of all users for me delete at some point
-router.get('/users', (req, res) => {
-    Favorites.find()
-        .then(allUsers => {
-            res.status(200).json(allUsers)
-        })
-        .catch(err => {
-            res.status(500).json({ message: 'Failed to get users' });
-        });
-})
 
 //gets one user object
 router.get('/users/:id', (req, res) => {
@@ -48,21 +38,31 @@ router.post('/users/:id', (req, res) => {
     Favorites
         .findById(id)
         .then(user => {
-            if (user) {
-                // console.log(favData, "TESTING")
-                Favorites
-                    .addFavorites(favData)
-                    .then(newFavorite => {
-                        res.status(201).json(newFavorite)
-                    })
-            } else {
-                res.status(404).json({ message: 'could not find user with given id' })
-            }
+            Favorites
+                .addFavorites(favData)
+                .then(newFavorite => {
+                    Favorites.findUserFavorites(id)
+                        .then(favorites => {
+                            const userFavs = favorites.map(fav => {
+                                return {
+                                    id: fav.id,
+                                    githubUser: fav.favorites,
+                                    notes: fav.notes
+                                }
+                            })
+                            res.status(201).json({ ...user, favortes: userFavs })
+                        })
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).json(err);
+                })
         })
         .catch(err => {
             console.log(err, 'this one')
             res.status(500).json({ message: 'Failed to add new favorite' });
         });
+
 })
 
 //deletes favorites
