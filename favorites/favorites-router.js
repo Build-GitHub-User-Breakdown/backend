@@ -14,7 +14,7 @@ router.get('/users/:id', (req, res) => {
                     const userFavs = favorites.map(fav => {
                         return {
                             id: fav.id,
-                            githubUser: fav.favorites,
+                            favorites: fav.favorites,
                             notes: fav.notes
                         }
                     })
@@ -46,7 +46,7 @@ router.post('/users/:id', (req, res) => {
                             const userFavs = favorites.map(fav => {
                                 return {
                                     id: fav.id,
-                                    githubUser: fav.favorites,
+                                    favorites: fav.favorites,
                                     notes: fav.notes
                                 }
                             })
@@ -66,6 +66,7 @@ router.post('/users/:id', (req, res) => {
 })
 
 //deletes favorites
+
 router.delete('/:id', (req, res) => {
     Favorites
         .deleteFavorites(req.params.id)
