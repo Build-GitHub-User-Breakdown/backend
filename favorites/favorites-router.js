@@ -2,16 +2,6 @@ const router = require('express').Router();
 const db = require('../database/dbConfig')
 const Favorites = require('./favorites-model')
 
-//gets list of all users for me delete at some point
-router.get('/users', (req, res) => {
-    Favorites.find()
-        .then(allUsers => {
-            res.status(200).json(allUsers)
-        })
-        .catch(err => {
-            res.status(500).json({ message: 'Failed to get users' });
-        });
-})
 
 //gets one user object
 router.get('/users/:id', (req, res) => {
@@ -24,7 +14,7 @@ router.get('/users/:id', (req, res) => {
                     const userFavs = favorites.map(fav => {
                         return {
                             id: fav.id,
-                            favorites: fav.favorites,
+                            githubUser: fav.favorites,
                             notes: fav.notes
                         }
                     })
@@ -56,7 +46,7 @@ router.post('/users/:id', (req, res) => {
                             const userFavs = favorites.map(fav => {
                                 return {
                                     id: fav.id,
-                                    favorites: fav.favorites,
+                                    githubUser: fav.favorites,
                                     notes: fav.notes
                                 }
                             })
