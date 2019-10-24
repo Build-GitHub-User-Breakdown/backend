@@ -49,7 +49,7 @@ router.post('/users/:id', (req, res) => {
         .findById(id)
         .then(user => {
             if (user) {
-                console.log(favData, "TESTING")
+                // console.log(favData, "TESTING")
                 Favorites
                     .addFavorites(favData)
                     .then(newFavorite => {

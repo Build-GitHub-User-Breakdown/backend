@@ -1,9 +1,9 @@
-const localPg = {
-    host: 'localhost',
-    port: 3300,
-    user: 'justin',
-    database: 'favorites',
-};
+// const localPg = {
+//     host: 'localhost',
+//     port: 3300,
+//     user: 'justin',
+//     database: 'favorites',
+// };
 
 // const pgUser = process.env.PG_USER || 'justin';
 // const pgDb = process.env.PG_DB || 'favorites';
@@ -46,14 +46,11 @@ module.exports = {
 
     production: {
         client: 'pg',
-        connection: { filename: './database/auth.db3' },
+        connection: process.env.DATABASE_URL,
         migrations: {
             directory: './database/migrations',
         },
         seeds: { directory: './database/seeds' },
-        pool: {
-            min: 2,
-            max: 10,
-        },
+
     }
 };
