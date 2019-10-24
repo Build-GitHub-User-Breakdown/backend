@@ -43,3 +43,4 @@ function editNotes(changes, id) {
     console.log(changes, id)
     return db('favorites').where({ id }).update(changes)
 }
+
