@@ -50,7 +50,7 @@ router.post('/users/:id', (req, res) => {
                                     notes: fav.notes
                                 }
                             })
-                            res.status(201).json({ ...user, favortes: userFavs })
+                            res.status(201).json({ favorites: userFavs })
                         })
                 })
                 .catch(err => {
@@ -68,15 +68,17 @@ router.post('/users/:id', (req, res) => {
 //deletes favorites
 
 router.delete('/:id', (req, res) => {
-    Favorites
-        .deleteFavorites(req.params.id)
-        .then(deleted => {
-            res.status(200).json(deleted)
-        })
-        .catch(err => {
-            console.log(err)
-            res.status(500).json(err);
-        })
+    router.delete('/:id', (req, res) => {
+        Favorites
+            .deleteFavorites(req.params.id)
+            .then(deleted => {
+                res.status(200).json(deleted)
+            })
+            .catch(err => {
+                console.log(err)
+                res.status(500).json(err);
+            })
+    })
 })
 
 //edit notes
