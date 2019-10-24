@@ -67,19 +67,39 @@ router.post('/users/:id', (req, res) => {
 
 //deletes favorites
 
-router.delete('/:id', (req, res) => {
-    router.delete('/:id', (req, res) => {
-        Favorites
-            .deleteFavorites(req.params.id)
-            .then(deleted => {
-                res.status(200).json(deleted)
-            })
-            .catch(err => {
-                console.log(err)
-                res.status(500).json(err);
-            })
-    })
+
+router.delete('/:id/:favId', (req, res) => {
+    const favId = req.params.favId
+    const id = req.params.id
+    Favorites
+        .findById(id)
+        .then(user => {
+            Favorites
+                .deleteFavorites(favId)
+                .then(newFavorite => {
+                    Favorites.findUserFavorites(id)
+                        .then(favorites => {
+                            const userFavs = favorites.map(fav => {
+                                return {
+                                    id: fav.id,
+                                    favorites: fav.favorites,
+                                    notes: fav.notes
+                                }
+                            })
+                            res.status(201).json({ favorites: userFavs })
+                        })
+                })
+                .catch(err => {
+                    console.log(err)
+                    res.status(500).json(err);
+                })
+        })
+        .catch(err => {
+            console.log(err, 'this one')
+            res.status(500).json({ message: 'Failed to delete favorite' });
+        });
 })
+
 
 //edit notes
 router.put('/:id/notes', (req, res) => {
